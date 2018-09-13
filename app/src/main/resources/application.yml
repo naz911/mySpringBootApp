@@ -1,0 +1,33 @@
+server:
+  port: 8888
+  use-forward-headers: true
+  tomcat:
+    remote_ip_header: x-forwarded-for
+    max-threads: 20
+
+info:
+  build:
+    name: MySpringBootApp
+    description: @project.description@
+    version: @project.version@
+
+###############################
+# LOGGING
+###############################
+logging:
+  level:
+    ROOT: INFO
+    com.home911: INFO
+
+###############################
+# Spring-Boot Actuators Endpoints
+###############################
+management:
+  endpoint:
+    health:
+        show-details: always
+
+spring:
+  h2:
+    console:
+      enabled: true
