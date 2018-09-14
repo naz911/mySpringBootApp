@@ -16,6 +16,7 @@ Input: from, lower bound date
 Input: to, higher bound date (optional default to a month later than from)  
 Output List<AvailabilitiesWS>  
 **Example:** 
+
 Request:
  
 ``` GET /availabilities?from=2018-10-01&to=2018-10-31```
