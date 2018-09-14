@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,9 +56,6 @@ public class ApplicationIT {
 	public void setup() {
 		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
 
-		reservationRepository.deleteAll();
-		reservationLockRepository.deleteAll();
-
 		reservationsService.createReservation(ReservationBean.builder()
 				.name("Logan Couture")
 				.email("logan.couture@hnl.com")
@@ -72,6 +70,12 @@ public class ApplicationIT {
 				.fromDate(now.plusDays(7))
 				.toDate(now.plusDays(9))
 				.build());
+	}
+
+	@After
+	public void cleanup() {
+		reservationRepository.deleteAll();
+		reservationLockRepository.deleteAll();
 	}
 
 	@Test

@@ -9,9 +9,11 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -23,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.home911.myspringboot.reservations.dao.ReservationLockRepository;
+import com.home911.myspringboot.reservations.dao.ReservationRepository;
 import com.home911.myspringboot.vo.ErrorWS;
 import com.home911.myspringboot.reservations.vo.ReservationWS;
 
@@ -36,12 +40,24 @@ public class ApplicationConcurrentIT {
 	@LocalServerPort
 	private int port;
 
+	@Autowired
+	private ReservationRepository reservationRepository;
+	@Autowired
+	private ReservationLockRepository reservationLockRepository;
+
+
 	private TestRestTemplate restTemplate = new TestRestTemplate();
 	private List<MediaType> acceptableMediaTypes = new ArrayList<>();
 
 	@Before
 	public void setup() {
 		acceptableMediaTypes.add(MediaType.APPLICATION_JSON);
+	}
+
+	@After
+	public void cleanup() {
+		reservationRepository.deleteAll();
+		reservationLockRepository.deleteAll();
 	}
 
 	@Test
@@ -65,7 +81,7 @@ public class ApplicationConcurrentIT {
 		thread1.start();
 		thread2.start();
 
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 
 		List<ReservationWS> reservationWSs = readReservations();
 		assertThat(reservationWSs).isNotNull();
