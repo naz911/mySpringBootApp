@@ -1,0 +1,344 @@
+{
+	"info": {
+		"_postman_id": "794a6c68-2e46-46a2-ae97-34b48448c858",
+		"name": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Read Reservations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ec8e8ca-d292-4db1-86a2-be432473d7bc",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \n  \"email\": \"benoit.houle@gmail.com\",\n    \"name\": \"Benoit Houle\",\n    \"fromDate\": \"2018-10-05\",\n    \"toDate\": \"2018-10-07\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/reservations?from=2018-10-01",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"reservations"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2018-10-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Availabilities",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6999319c-be91-450e-8267-bd7b654c51df",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Benoit Houle\",\n    \"email\": \"benoit.houle@gmail.com\",\n    \"fromDate\": \"2018-11-14\",\n    \"toDate\": \"2018-11-16\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/availabilities?from=2018-10-01",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"availabilities"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2018-10-01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7f897b7d-12c2-4930-98c8-0574f5a831cb",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 201\"] = responseCode.code === 201;",
+							"try {",
+							"    var uuid = responseBody;",
+							"    postman.setEnvironmentVariable(\"uuid\", uuid);",
+							"} catch(e) {",
+							"    console.log(e);",
+							"}"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \n  \"email\": \"benoit.houle@gmail.com\",\n  \"name\": \"Benoit Houle\",\n  \"fromDate\": \"2018-10-05\",\n  \"toDate\": \"2018-10-07\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/reservations",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "81f1c03e-bf53-4969-9095-f8316857ea96",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \n  \"email\": \"benoit.houle@gmail.com\",\n    \"name\": \"Benoit Houle\",\n    \"fromDate\": \"2018-10-05\",\n    \"toDate\": \"2018-10-07\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/reservations/{{uuid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"reservations",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f1c74d0-ec78-43bc-abba-def9117e7c2c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \n  \"fromDate\": \"2018-10-05\",\n  \"toDate\": \"2018-10-06\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/reservations/{{uuid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"reservations",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73ba9425-0fc4-4279-b2d8-13eff8c3c46b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \n  \"email\": \"benoit.houle@gmail.com\",\n    \"name\": \"Benoit Houle\",\n    \"fromDate\": \"2018-10-05\",\n    \"toDate\": \"2018-10-07\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/reservations/{{uuid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"reservations",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2be51d7-e7a5-49e6-bbcb-5c1f9cee65dc",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Benoit Houle\",\n    \"email\": \"benoit.houle@gmail.com\",\n    \"fromDate\": \"2018-11-14\",\n    \"toDate\": \"2018-11-16\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/reservations/{{uuid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"reservations",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Reservation (post Delete)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7f9636e-4748-42f8-977e-cf65b348d026",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 404\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{    \n  \"email\": \"benoit.houle@gmail.com\",\n    \"name\": \"Benoit Houle\",\n    \"fromDate\": \"2018-10-05\",\n    \"toDate\": \"2018-10-07\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8888/reservations/{{uuid}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"reservations",
+						"{{uuid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
