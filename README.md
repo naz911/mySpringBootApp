@@ -19,7 +19,20 @@ Output List<AvailabilitiesWS>
 ``` GET /availabilities?from=2018-10-01&to=2018-10-31```  
 ```  
 [  
- { "date": "2018-10-01" }, { "date": "2018-10-02" }, { "date": "2018-10-03" } ::: { "date": "2018-10-31" }]  
+  {
+    "date": "2018-10-01"
+  },
+  {
+    "date": "2018-10-02"
+  },
+  {
+    "date": "2018-10-03"
+  }
+  :::
+  {
+    "date": "2018-10-31"
+  }
+]  
 ```  
 #### Reservations  
 ##### Create reservation  
@@ -33,7 +46,11 @@ POST /reservations
 Content-Type: application/json  
   
 {  
- "email": "benoit.houle@gmail.com", "name": "Benoit Houle", "fromDate": "2018-10-05", "toDate": "2018-10-07"}  
+  "email": "benoit.houle@gmail.com",
+  "name": "Benoit Houle",
+  "fromDate": "2018-10-05",
+  "toDate": "2018-10-07"
+}  
 ```  
 Response:  
 ```  
@@ -56,7 +73,14 @@ Response:
 HTTP 200 OK  
   
 {  
- "createdOn": "2018-09-14 14:25:00", "lastModified": "2018-09-14 14:25:00", "reservationUuid": "1d2a2566-f71c-452e-813c-7b3398ca29af", "email": "benoit.houle@gmail.com", "name": "Benoit Houle", "fromDate": "2018-10-05", "toDate": "2018-10-07"}  
+  "createdOn": "2018-09-14 14:25:00",
+  "lastModified": "2018-09-14 14:25:00",
+  "reservationUuid": "1d2a2566-f71c-452e-813c-7b3398ca29af",
+  "email": "benoit.houle@gmail.com",
+  "name": "Benoit Houle",
+  "fromDate": "2018-10-05",
+  "toDate": "2018-10-07"
+}  
 ```  
 ##### Update reservation  
 ``` PUT /reservations/{reservationUuid}```  
@@ -68,7 +92,9 @@ PUT /reservations/1d2a2566-f71c-452e-813c-7b3398ca29af
 Content-Type: application/json  
   
 {  
- "fromDate": "2018-10-05", "toDate": "2018-10-07"}  
+  "fromDate": "2018-10-05",
+  "toDate": "2018-10-07"
+}  
 ```  
 Response:  
 ```  
