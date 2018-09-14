@@ -4,8 +4,8 @@
   
 ### Design and Implementation decisions 
 
- - As for sake of fast and simple, I chosen to go with a "monolith" architecture where all services/domains are under the same app/module.  But ideally we could have had multiple service/domains such as: (availabilities, reservations)
- - As a locking mechanism, I decided to choose the option of a secondary table, where the locks would be save, so that on a distributed environments, multiple application instances, every single instance, will be competing the the same lock;
+ - As for sake of fast and simple, I chosen to go with a "monolith" architecture where all services/domains are under the same app/module.  But ideally we could have had multiple service/domains such as: (availabilities, reservations, lock)
+ - As a locking mechanism, I decided to choose the option of a secondary table, where the locks would be save, so that on a distributed environments, multiple application instances, every single instance, will be competing the the same lock.  So this rely on database unique constraint violation, when trying to obtain a lock on specific date.
 
   
 ### Endpoints  
