@@ -4,13 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.home911.myspringboot.reservations.dao.ReservationLockRepository;
 import com.home911.myspringboot.reservations.model.ReservationLock;
@@ -22,7 +22,7 @@ public class ReservationLockServiceImpl implements ReservationLockService {
 	private ReservationLockRepository reservationLockRepository;
 
 	@Override
-	@Transactional(Transactional.TxType.REQUIRES_NEW)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public List<ReservationLock> gatherLock(LocalDate from, LocalDate to) {
 		List<ReservationLock> reservationLocks = new ArrayList<>();
 		LocalDate reservationDate = from;
@@ -36,6 +36,7 @@ public class ReservationLockServiceImpl implements ReservationLockService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void releaseLock(List<ReservationLock> reservationLocks) {
 		reservationLockRepository.deleteAll(reservationLocks);
 	}
